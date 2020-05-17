@@ -13,7 +13,7 @@ class EnvGetCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'env:get {key?} {--key-value}';
+    protected $signature = 'env:get {key?} {--key-value} {--json}';
 
     /**
      * The console command description.
@@ -44,32 +44,20 @@ class EnvGetCommand extends Command
         if (!is_null($key))
             $this->validKey($key);
 
-        $env_path = app()->environmentFilePath();
-        $env_config = file_get_contents($env_path);
+        $json = $this->option('json');
+        $keyValFormat = $this->option('key-value');
+
+        $env = new Env();
 
         if (is_null($key))
-            return $this->line($env_config);
+            return $this->line(($json) ? json_encode($env->getEnvContent()) : $env->getEnvContent());
 
-        $value = $this->getEnvValue($env_config, $key);
 
-        $keyValFormat = $this->option('key-value');
-        return ($keyValFormat)
-            ? $this->line("{$key}={$value}")
-            : $this->line($value);
-    }
+        $value = ($json) ? json_encode($env->getKeyValue($key)) : ($keyValFormat ? $env->getKeyValue($key) : $env->getValue($key));
 
-    /**
-     * Get the current value of a given key from an environment file.
-     *
-     * @param string $envFile
-     * @param string $key
-     * @return string
-     */
-    protected function getEnvValue(&$envFile, string $key): string
-    {
-        preg_match("/^{$key}=(.*)\r\n/m", $envFile, $matches);
-
-        return $matches[1] ?? '';
+        return ($json)
+            ? $this->line($value)
+            : $this->line(($keyValFormat ? "{$key}={$value[$key]}" : $value));
     }
 
 
@@ -81,8 +69,8 @@ class EnvGetCommand extends Command
      */
     protected function validKey(string $key): bool
     {
-        if (!preg_match('/^[a-zA-Z_]+$/', $key)) {
-            throw new InvalidArgumentException('Invalid environment variable. Use only letters and underscores.');
+        if (!preg_match('/^[a-zA-Z_0-9]+$/', $key)) {
+            throw new InvalidArgumentException('Invalid environment variable. Use only letters, digits and underscores.');
         }
 
         return true;
