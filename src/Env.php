@@ -15,13 +15,13 @@ class Env {
         $this->_envPath = app()->environmentFilePath();
         $this->_envContent = file_get_contents($this->_envPath);
 
-        $this->parse();
+        $this->_parse();
     }
 
     /**
      *  Parse env content into array
      */
-    public function parse() {
+    private function _parse() {
 
         $env_lines = preg_split('/\r\n|\r|\n/', $this->_envContent);
 
@@ -37,13 +37,13 @@ class Env {
 
     /**
      * Check if the variable exists
-     * @param string $key Variable key
+     * @param string $key Environment variable key
      * @return bool
      */
     public function exists(string $key): bool
     {
         if (is_null($this->_envVars))
-            $this->parse();
+            $this->_parse();
 
         return isset($this->_envVars[strtoupper($key)]);
     }
@@ -51,13 +51,13 @@ class Env {
     /**
      * Get the current env variable value
      *
-     * @param string $key Variable key
+     * @param string $key Environment variable key
      * @return string
      */
     public function getValue(string $key): string
     {
         if (is_null($this->_envVars))
-            $this->parse();
+            $this->_parse();
 
         return $this->_envVars[strtoupper($key)] ?? '';
     }
@@ -66,13 +66,13 @@ class Env {
     /**
      * Get env key-value
      *
-     * @param string $key Variable key
+     * @param string $key Environment variable key
      * @return array
      */
     public function getKeyValue(string $key): array
     {
         if (is_null($this->_envVars))
-            $this->parse();
+            $this->_parse();
 
         return [strtoupper($key) => $this->_envVars[strtoupper($key)]] ?? [];
     }
@@ -80,12 +80,12 @@ class Env {
 
     /**
      * Set env variable value
-     * @param string $key Variable key
+     * @param string $key Environment variable key
      * @param string $value Variable value
-     * @param bool $save Save to .env file
+     * @param bool $write Write changes to .env file
      * @return string
      */
-    public function setValue(string $key, string $value, $save = true): string
+    public function setValue(string $key, string $value, $write = true): string
     {
         $key = strtoupper($key);
         $value = $this->_prepareValue($value);
@@ -100,22 +100,36 @@ class Env {
         $this->_changed = true;
         $this->_saved = false;
 
-        $this->parse();
-        if ($save) $this->write();
+        $this->_parse();
+        if ($write) $this->write();
 
         return $this->getValue($key);
 
     }
 
 
-    public function deleteVariable($key)
+    /**
+     * Delete environment variable
+     * @param string $key Environment variable key
+     * @param bool $write Write changes to .env file
+     * @return bool
+     */
+    public function deleteVariable(string $key, bool $write = true): bool
     {
         $key = strtoupper($key);
 
         if ($this->exists($key)) {
-            $this->_envContent = preg_replace("/^{$key}=.*$/m", '', $this->_envContent);
-            dd($this->_envContent);
+            $this->_envContent = preg_replace("/^{$key}=.*(\r\n|\r|\n)/m", '', $this->_envContent);
+
+            $this->_changed = false;
+            $this->_saved = false;
+
+            if ($write)
+                $this->write();
+
         }
+
+        return true;
 
     }
 
