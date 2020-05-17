@@ -1,13 +1,17 @@
 <?php
 
-namespace msztorc\LaravelEnv;
+namespace msztorc\LaravelEnv\Commands;
 
-use InvalidArgumentException;
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
+use msztorc\LaravelEnv\Commands\Traits\CommandValidator;
+use msztorc\LaravelEnv\Env;
 
 class EnvGetCommand extends Command
 {
+
+    use CommandValidator;
+
     /**
      * The name and signature of the console command.
      *
@@ -42,7 +46,7 @@ class EnvGetCommand extends Command
         $key = $this->argument('key');
 
         if (!is_null($key))
-            $this->validKey($key);
+            $this->isValidKey($key);
 
         $json = $this->option('json');
         $keyValFormat = $this->option('key-value');
@@ -58,21 +62,5 @@ class EnvGetCommand extends Command
         return ($json)
             ? $this->line($value)
             : $this->line(($keyValFormat ? "{$key}={$value[$key]}" : $value));
-    }
-
-
-    /**
-     * Check if a given string is valid as an environment variable key.
-     *
-     * @param string $key
-     * @return boolean
-     */
-    protected function validKey(string $key): bool
-    {
-        if (!preg_match('/^[a-zA-Z_0-9]+$/', $key)) {
-            throw new InvalidArgumentException('Invalid environment variable. Use only letters, digits and underscores.');
-        }
-
-        return true;
     }
 }
