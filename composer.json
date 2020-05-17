@@ -1,0 +1,41 @@
+{
+    "name": "msztorc/laravel-env",
+    "description": "Laravel env helper commands",
+    "keywords": [
+        "laravel",
+        "env",
+        "command",
+        "environment",
+        "artisan",
+        "variables"
+    ],
+    "homepage": "https://github.com/msztorc/laravel-env",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Miroslaw Sztorc",
+            "email": "miroslaw@sztorc.com",
+            "homepage": "https://sztorc.com",
+            "role": "Maintainer"
+        }
+    ],
+    "require": {
+        "php": "^7.1",
+        "ext-json": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "msztorc\\LaravelEnv\\": "src"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "msztorc\\LaravelEnv\\LaravelEnvServiceProvider"
+            ]
+        }
+    }
+}
