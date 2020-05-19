@@ -3,6 +3,7 @@
     "description": "Laravel env helper commands",
     "keywords": [
         "laravel",
+        "laravel-env",
         "env",
         "command",
         "environment",
@@ -20,7 +21,7 @@
         }
     ],
     "require": {
-        "php": "^7.3",
+        "php": "^7.1",
         "ext-json": "*"
     },
     "autoload": {
@@ -52,7 +53,7 @@
         }
     },
     "require-dev": {
-        "orchestra/testbench": "^4.0",
-        "phpunit/phpunit": "^9"
+        "orchestra/testbench": "^3.7|^4.0",
+        "phpunit/phpunit": "^7.0|^8.0|^9.0"
     }
 }
