@@ -174,13 +174,17 @@ class Env {
         return $this->_envContent;
     }
 
-    public function write()
+    /**
+     * Write env config to file
+     * @return bool
+     */
+    public function write(): bool
     {
         return $this->_saved = file_put_contents($this->_envPath, $this->_envContent);
     }
 
     /**
-     * CHeck if the changes has been saved
+     * Check if the changes has been saved
      * @return bool
      */
     public function isSaved(): bool
