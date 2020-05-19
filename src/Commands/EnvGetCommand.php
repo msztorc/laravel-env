@@ -43,20 +43,20 @@ class EnvGetCommand extends Command
      */
     public function handle()
     {
-        $key = $this->argument('key');
+        $key = (string)$this->argument('key');
 
-        if (!is_null($key))
-            $this->isValidKey((string)$key);
+        if (strlen($key))
+            $this->isValidKey($key);
 
         $json = $this->option('json');
         $keyValFormat = $this->option('key-value');
 
         $env = new Env();
 
-        if (is_null($key))
+        if (!strlen($key))
             $this->line(($json) ? json_encode($env->getVariables()) : $env->getEnvContent());
 
-        if (!is_null($key) && $env->exists($key)) {
+        if (strlen($key) && $env->exists($key)) {
             $value = ($json) ? json_encode($env->getKeyValue($key)) : ($keyValFormat ? $env->getKeyValue($key) : $env->getValue($key));
 
             $this->line(($json)
