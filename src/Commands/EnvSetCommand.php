@@ -46,14 +46,15 @@ class EnvSetCommand extends Command
     {
         try {
             [$key, $value] = $this->getKeyValue();
+
+            $env = new Env();
+            $env->setValue($key, $value);
+
+            $this->info("Environment variable with key '{$key}' has been set to '{$value}'");
+
         } catch (\InvalidArgumentException $e) {
-            return $this->error($e->getMessage());
+            $this->error($e->getMessage());
         }
-
-        $env = new Env();
-        $env->setValue($key, $value);
-
-        return $this->info("A new environment variable with key '{$key}' has been set to '{$value}'");
     }
 
 
