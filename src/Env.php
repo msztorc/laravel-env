@@ -28,7 +28,7 @@ class Env {
         foreach ($env_lines as $line)
         {
             if (strlen($line)) {
-                [$key, $val] = explode('=', $line);
+                [$key, $val] = explode('=', (string)$line);
                 $this->_envVars[$key] = $this->_stripValue($val);
             }
         }
@@ -180,7 +180,8 @@ class Env {
      */
     public function write(): bool
     {
-        return $this->_saved = file_put_contents($this->_envPath, $this->_envContent);
+        $this->_saved = (false !== file_put_contents($this->_envPath, $this->_envContent) ?? true);
+        return $this->_saved;
     }
 
     /**

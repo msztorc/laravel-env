@@ -68,8 +68,8 @@ class EnvSetCommand extends Command
         $key = $this->argument('key');
         $value = $this->argument('value');
 
-        if (!$value) {
-            $parts = explode('=', $key, 2);
+        if (is_null($value) || !$value) {
+            $parts = explode('=', (string)$key, 2);
 
             if (count($parts) !== 2) {
                 throw new InvalidArgumentException('No value was set');
@@ -78,15 +78,15 @@ class EnvSetCommand extends Command
             [$key, $value] = $parts;
         }
 
-        if (Str::contains($key, '=')) {
+        if (Str::contains((string)$key, '=')) {
             throw new InvalidArgumentException("Environment key should not contain '='");
         }
 
-        if (!$this->isValidKey($key)) {
+        if (!$this->isValidKey((string)$key)) {
             throw new InvalidArgumentException('Invalid argument key');
         }
 
-        return [strtoupper($key), $value];
+        return [strtoupper((string)$key), (string)$value];
     }
 
 }
