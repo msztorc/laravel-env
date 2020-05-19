@@ -47,15 +47,15 @@ final class EnvArtisanTest extends TestCase
     public function testEnvGetSelected(): void
     {
 
-        $this->artisan('env:get APP_NAME')
+        $this->artisan('env:get', ['key' => 'APP_NAME'])
             ->expectsOutput('Laravel')
             ->assertExitCode(0);
 
-        $this->artisan('env:get REDIS_HOST')
+        $this->artisan('env:get', ['key' => 'REDIS_HOST'])
             ->expectsOutput('127.0.0.1')
             ->assertExitCode(0);
 
-        $this->artisan('env:get MAIL_FROM_NAME')
+        $this->artisan('env:get', ['key' => 'MAIL_FROM_NAME'])
             ->expectsOutput('${APP_NAME}')
             ->assertExitCode(0);
 
@@ -66,7 +66,7 @@ final class EnvArtisanTest extends TestCase
 
         foreach ($this->_env_vars as $key => $val) {
 
-            $this->artisan('env:get ' . $key)
+            $this->artisan('env:get', ['key' => $key])
                 ->expectsOutput($val)
                 ->assertExitCode(0);
         }
@@ -103,7 +103,7 @@ final class EnvArtisanTest extends TestCase
 
         foreach ($this->env_vars_empty as $key => $val) {
 
-            $this->artisan('env:set '. $key .'=' .$val)
+            $this->artisan('env:set', ['key' => $key .'=' .$val])
                 ->expectsOutput("Environment variable with key '{$key}' has been set to '{$val}'")
                 ->assertExitCode(0);
 

@@ -19,7 +19,7 @@ final class EnvClassTest extends TestCase
     public function tearDown(): void
     {
         parent::tearDown();
-        //unlink(__DIR__.'/.env');
+        unlink(__DIR__.'/.env');
     }
 
     protected function getPackageProviders($app)
