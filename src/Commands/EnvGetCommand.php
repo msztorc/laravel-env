@@ -54,9 +54,9 @@ class EnvGetCommand extends Command
         $env = new Env();
 
         if (is_null($key))
-            $this->line(($json) ? json_encode($env->getEnvContent()) : $env->getEnvContent());
+            $this->line(($json) ? json_encode($env->getVariables()) : $env->getEnvContent());
 
-        if ($env->exists($key)) {
+        if (!is_null($key) && $env->exists($key)) {
             $value = ($json) ? json_encode($env->getKeyValue($key)) : ($keyValFormat ? $env->getKeyValue($key) : $env->getValue($key));
 
             $this->line(($json)
@@ -64,7 +64,7 @@ class EnvGetCommand extends Command
                 : ($keyValFormat ? "{$key}={$value[$key]}" : $value)
             );
         } else {
-            $this->line("There is no variable {$key}");
+            $this->line("There is no variable '{$key}'");
         }
     }
 }

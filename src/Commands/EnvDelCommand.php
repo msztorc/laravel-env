@@ -52,10 +52,11 @@ class EnvDelCommand extends Command
         $env = new Env();
         if (!$env->exists($key))
             $this->info("There is no variable {$key}");
-
-        $env->deleteVariable($key);
-
-        $this->info("Variable {$key} has been deleted");
+        else
+        {
+            $env->deleteVariable($key);
+            $this->info("Variable '{$key}' has been deleted");
+        }
     }
 
 }

@@ -121,11 +121,11 @@ final class EnvArtisanTest extends TestCase
         foreach ($this->env_vars_empty as $key) {
 
             $this->artisan('env:del', ['key' => $key])
-                ->expectsOutput("Variable {$key} has been deleted")
+                ->expectsOutput("Variable '{$key}' has been deleted")
                 ->assertExitCode(0);
 
             $this->artisan('env:get', ['key' => $key])
-                ->expectsOutput("There is no variable {$key}")
+                ->expectsOutput("There is no variable '{$key}'")
                 ->assertExitCode(0);
 
 
