@@ -16,11 +16,12 @@
             "name": "Miroslaw Sztorc",
             "email": "miroslaw@sztorc.com",
             "homepage": "https://sztorc.com",
-            "role": "Maintainer"
+            "role": "Developer"
         }
     ],
     "require": {
         "php": "^7.1",
+        "illuminate/support": "^6.0",
         "ext-json": "*"
     },
     "autoload": {
@@ -28,14 +29,31 @@
             "msztorc\\LaravelEnv\\": "src"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "msztorc\\LaravelEnv\\Tests\\": "tests"
+        }
+    },
     "config": {
         "sort-packages": true
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit --colors=always",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+
     },
     "extra": {
         "laravel": {
             "providers": [
                 "msztorc\\LaravelEnv\\LaravelEnvServiceProvider"
-            ]
+            ],
+            "aliases": {
+                "LaravelEnv": "msztorc\\LaravelEnv\\LaravelEnvFacade"
+            }
         }
+    },
+    "require-dev": {
+        "orchestra/testbench": "^4.0",
+        "phpunit/phpunit": "^9"
     }
 }
