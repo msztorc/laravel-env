@@ -29,7 +29,7 @@ class Env {
         {
             if (strlen($line)) {
                 [$key, $val] = explode('=', $line);
-                $this->_envVars[$key] = $val;
+                $this->_envVars[$key] = $this->_stripValue($val);
             }
         }
     }
@@ -91,8 +91,7 @@ class Env {
         $value = $this->_prepareValue($value);
 
         if ($this->exists($key)) {
-            $current_val = $this->getValue($key);
-            $this->_envContent = str_replace("{$key}={$current_val}", "{$key}={$value}", $this->_envContent);
+            $this->_envContent = preg_replace("/^{$key}=.*$/m", "{$key}={$value}", $this->_envContent);
         } else {
             $this->_envContent .= PHP_EOL . "{$key}={$value}" . PHP_EOL;
         }
@@ -119,9 +118,9 @@ class Env {
         $key = strtoupper($key);
 
         if ($this->exists($key)) {
-            $this->_envContent = preg_replace("/^{$key}=.*(\r\n|\r|\n)/m", '', $this->_envContent);
+            $this->_envContent = preg_replace("/^{$key}=.*\s{0,1}/m", '', $this->_envContent);
 
-            $this->_changed = false;
+            $this->_changed = true;
             $this->_saved = false;
 
             if ($write)
@@ -144,7 +143,17 @@ class Env {
             $value = '"' . $value . '"';
         }
 
-        return $value;
+        return preg_quote($value);
+    }
+
+    /**
+     * Strip output value
+     * @param string $value
+     * @return string
+     */
+    private function _stripValue(string $value): string
+    {
+        return trim($value, '"');
     }
 
     /**
