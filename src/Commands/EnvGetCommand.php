@@ -53,8 +53,10 @@ class EnvGetCommand extends Command
 
         $env = new Env();
 
-        if (!strlen($key))
+        if (!strlen($key)) {
             $this->line(($json) ? json_encode($env->getVariables()) : $env->getEnvContent());
+            return;
+        }
 
         if (strlen($key) && $env->exists($key)) {
             $value = ($json) ? json_encode($env->getKeyValue($key)) : ($keyValFormat ? $env->getKeyValue($key) : $env->getValue($key));
