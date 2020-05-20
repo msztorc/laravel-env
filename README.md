@@ -7,6 +7,8 @@
 # Laravel-Env
 Managing environment variables programmatically and from the command line (by the artisan)
 
+![](laravel-env.gif)
+
 <!-- TOC -->
 - [Installation](#installation)
 - [Usage](#usage)
@@ -67,6 +69,7 @@ $ php artisan env:get --json
 **Programmatically**
 
 ```php
+<?php
 
 use msztorc\LaravelEnv\Env;
 
@@ -107,6 +110,7 @@ Environment variable with key 'APP_NAME' has been set to 'Laravel App'
 **Programmatically**
 
 ```php
+<?php
 
 use msztorc\LaravelEnv\Env;
 
@@ -133,6 +137,7 @@ Variable 'PUSHER_APP_ID' has been deleted
 **Programmatically**
 
 ```php
+<?php
 
 use msztorc\LaravelEnv\Env;
 
