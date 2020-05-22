@@ -12,7 +12,7 @@ class Env {
 
     public function __construct()
     {
-        $this->_envPath = app()->environmentFilePath();
+        /** @scrutinizer ignore-call */ $this->_envPath = app()->environmentFilePath();
         $this->_envContent = file_get_contents($this->_envPath);
 
         $this->_parse();
