@@ -84,22 +84,35 @@ class EnvGetCommand extends Command
 
     }
 
+    private function _printAllEnvValues()
+    {
+        $this->line(($this->json) ? json_encode($this->env->getVariables()) : $this->env->getEnvContent());
+        return;
+    }
+
+    private function _printKeyValue()
+    {
+        $value = ($this->json) ? json_encode($this->env->getKeyValue($this->key)) : ($this->keyValFormat ? $this->env->getKeyValue($this->key) : $this->env->getValue($this->key));
+
+        $this->line(($this->json)
+            ? (string)$value
+            : ($this->keyValFormat ? "{$this->key}={$value[$this->key]}" : (string)$value)
+        );
+
+        return;
+    }
+
     private function _printOutput()
     {
         if (!strlen($this->key)) {
-            $this->line(($this->json) ? json_encode($this->env->getVariables()) : $this->env->getEnvContent());
-            return;
+            $this->_printAllEnvValues();
         }
 
         if (strlen($this->key) && $this->env->exists($this->key)) {
-            $value = ($this->json) ? json_encode($this->env->getKeyValue($this->key)) : ($this->keyValFormat ? $this->env->getKeyValue($this->key) : $this->env->getValue($this->key));
-
-            $this->line(($this->json)
-                ? (string)$value
-                : ($this->keyValFormat ? "{$this->key}={$value[$this->key]}" : (string)$value)
-            );
+            $this->_printKeyValue();
         } else {
             $this->line("There is no variable '{$this->key}'");
         }
+        return;
     }
 }
