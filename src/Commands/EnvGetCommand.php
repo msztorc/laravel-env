@@ -27,6 +27,34 @@ class EnvGetCommand extends Command
     protected $description = 'Get variable value from an environment file';
 
     /**
+     * Environment variable key.
+     *
+     * @var string
+     */
+    protected $key;
+
+    /**
+     * key-value format arg
+     *
+     * @var bool
+     */
+    protected $keyValFormat;
+
+    /**
+     * json format argument
+     *
+     * @var bool
+     */
+    protected $json;
+
+    /**
+     * Env object
+     *
+     * @var object
+     */
+    protected $env;
+
+    /**
      * Create a new command instance.
      *
      * @return void
@@ -43,30 +71,35 @@ class EnvGetCommand extends Command
      */
     public function handle()
     {
-        $key = (string)$this->argument('key');
+        $this->key = (string)$this->argument('key');
 
-        if (strlen($key))
-            $this->isValidKey($key);
+        if (strlen($this->key))
+            $this->isValidKey($this->key);
 
-        $json = $this->option('json');
-        $keyValFormat = $this->option('key-value');
+        $this->json = (bool)$this->option('json');
+        $this->keyValFormat = (bool)$this->option('key-value');
+        $this->env = new Env();
 
-        $env = new Env();
+        return $this->_printOutput();
 
-        if (!strlen($key)) {
-            $this->line(($json) ? json_encode($env->getVariables()) : $env->getEnvContent());
+    }
+
+    private function _printOutput()
+    {
+        if (!strlen($this->key)) {
+            $this->line(($this->json) ? json_encode($this->env->getVariables()) : $this->env->getEnvContent());
             return;
         }
 
-        if (strlen($key) && $env->exists($key)) {
-            $value = ($json) ? json_encode($env->getKeyValue($key)) : ($keyValFormat ? $env->getKeyValue($key) : $env->getValue($key));
+        if (strlen($this->key) && $this->env->exists($this->key)) {
+            $value = ($this->json) ? json_encode($this->env->getKeyValue($this->key)) : ($this->keyValFormat ? $this->env->getKeyValue($this->key) : $this->env->getValue($this->key));
 
-            $this->line(($json)
+            $this->line(($this->json)
                 ? (string)$value
-                : ($keyValFormat ? "{$key}={$value[$key]}" : (string)$value)
+                : ($this->keyValFormat ? "{$this->key}={$value[$this->key]}" : (string)$value)
             );
         } else {
-            $this->line("There is no variable '{$key}'");
+            $this->line("There is no variable '{$this->key}'");
         }
     }
 }

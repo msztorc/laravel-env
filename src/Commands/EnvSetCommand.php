@@ -55,6 +55,8 @@ class EnvSetCommand extends Command
         } catch (\InvalidArgumentException $e) {
             $this->error($e->getMessage());
         }
+
+        return;
     }
 
 
