@@ -61,13 +61,12 @@ class EnvListCommand extends Command
         $this->json = (bool)$this->option('json');
 
         $this->env = new Env();
-        return $this->_printAllEnvValues();
-
+        $this->line($this->_getEntireEnvContent());
+        return;
     }
 
-    private function _printAllEnvValues()
+    private function _getEntireEnvContent()
     {
-        $this->line(($this->json) ? json_encode($this->env->getVariables()) : $this->env->getEnvContent());
-        return;
+        return ($this->json) ? json_encode($this->env->getVariables()) : $this->env->getEnvContent();
     }
 }
