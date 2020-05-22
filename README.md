@@ -1,8 +1,8 @@
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/msztorc/laravel-env.svg?style=flat)](https://packagist.org/packages/msztorc/laravel-env)
-[![Build Status](https://img.shields.io/travis/msztorc/laravel-env/master.svg?style=flat)](https://travis-ci.org/msztorc/laravel-env)
+[![Build Status](https://travis-ci.org/msztorc/php-dpd-api.svg?branch=master)](https://travis-ci.org/msztorc/laravel-env)
 [![Quality Score](https://img.shields.io/scrutinizer/g/msztorc/laravel-env.svg?style=flat)](https://scrutinizer-ci.com/g/msztorc/laravel-env)
 [![Total Downloads](https://img.shields.io/packagist/dt/msztorc/laravel-env.svg?style=flat)](https://packagist.org/packages/msztorc/laravel-env)
-[![License](https://img.shields.io/github/license/msztorc/laravel-env.svg?style=flat)](LICENSE.md)
+[![License](http://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](LICENSE.md)
 
 # Laravel-Env
 Managing environment variables programmatically and from the command line (by the artisan)
