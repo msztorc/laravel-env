@@ -21,7 +21,7 @@ class Env {
     /**
      *  Parse env content into array
      */
-    private function _parse() {
+    private function _parse(): void {
 
         $env_lines = preg_split('/\r\n|\r|\n/', $this->_envContent);
 
@@ -143,7 +143,8 @@ class Env {
         return preg_quote($value);
     }
 
-    private function _stripQuotes($value) {
+    private function _stripQuotes(string $value): string
+    {
         return preg_replace('/^(\'(.*)\'|"(.*)")$/', '$2$3', $value);
     }
 
