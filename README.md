@@ -1,6 +1,7 @@
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/msztorc/laravel-env.svg?style=flat)](https://packagist.org/packages/msztorc/laravel-env)
+![laravel-env](https://github.com/msztorc/laravel-env/workflows/tests/badge.svg)
 [![Build Status](https://travis-ci.org/msztorc/php-dpd-api.svg?branch=master)](https://travis-ci.org/msztorc/laravel-env)
 [![Quality Score](https://img.shields.io/scrutinizer/g/msztorc/laravel-env.svg?style=flat)](https://scrutinizer-ci.com/g/msztorc/laravel-env)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/msztorc/laravel-env.svg?style=flat)](https://packagist.org/packages/msztorc/laravel-env)
 [![Total Downloads](https://img.shields.io/packagist/dt/msztorc/laravel-env.svg?style=flat)](https://packagist.org/packages/msztorc/laravel-env)
 [![License](http://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](LICENSE.md)
 
