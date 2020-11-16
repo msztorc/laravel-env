@@ -27,7 +27,7 @@ class Env {
 
         foreach ($env_lines as $line)
         {
-            if (strlen($line)) {
+            if (strlen($line) && str_contains((string) $line, '=')) {
                 [$key, $val] = explode('=', (string)$line);
                 $this->_envVars[$key] = $this->_stripValue($val);
             }
