@@ -22,7 +22,7 @@
     ],
     "require": {
         "php": "^7.1",
-        "illuminate/database" : "~5.8.0|^6.0|^7.0|^8.0",
+        "illuminate/support" : "~5.8.0|^6.0|^7.0|^8.0",
         "ext-json": "*"
     },
     "autoload": {
