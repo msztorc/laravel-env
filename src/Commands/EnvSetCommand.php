@@ -88,7 +88,7 @@ class EnvSetCommand extends Command
             throw new InvalidArgumentException('Invalid argument key');
         }
 
-        return [strtoupper((string)$key), (string)$value];
+        return [(string)$key, (string)$value];
     }
 
 }
