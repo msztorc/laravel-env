@@ -27,7 +27,7 @@ class Env {
 
         foreach ($env_lines as $line)
         {
-            if (strlen($line)) {
+            if (strlen(trim($line)) && !(strpos(trim($line), '#') === 0)) {
                 [$key, $val] = explode('=', (string)$line);
                 $this->_envVars[$key] = $this->_stripValue($val);
             }
@@ -45,7 +45,7 @@ class Env {
         if (is_null($this->_envVars))
             $this->_parse();
 
-        return isset($this->_envVars[strtoupper($key)]);
+        return isset($this->_envVars[$key]);
     }
 
     /**
@@ -59,7 +59,7 @@ class Env {
         if (is_null($this->_envVars))
             $this->_parse();
 
-        return $this->_envVars[strtoupper($key)] ?? '';
+        return $this->_envVars[$key] ?? '';
     }
 
 
@@ -74,7 +74,7 @@ class Env {
         if (is_null($this->_envVars))
             $this->_parse();
 
-        return [strtoupper($key) => $this->_envVars[strtoupper($key)]] ?? [];
+        return [$key => $this->_envVars[$key]] ?? [];
     }
 
 
@@ -87,7 +87,6 @@ class Env {
      */
     public function setValue(string $key, string $value, $write = true): string
     {
-        $key = strtoupper($key);
         $value = $this->_prepareValue($value);
 
         if ($this->exists($key)) {
@@ -115,8 +114,6 @@ class Env {
      */
     public function deleteVariable(string $key, bool $write = true): bool
     {
-        $key = strtoupper($key);
-
         if ($this->exists($key)) {
             $this->_envContent = preg_replace("/^{$key}=.*\s{0,1}/m", '', $this->_envContent);
 
@@ -146,14 +143,19 @@ class Env {
         return preg_quote($value);
     }
 
+    private function _stripQuotes($value) {
+        return preg_replace('/^(\'(.*)\'|"(.*)")$/', '$2$3', $value);
+    }
+
     /**
-     * Strip output value
+     * Strip output value from quotes and inline comments
      * @param string $value
      * @return string
      */
     private function _stripValue(string $value): string
     {
-        return trim($value, '"');
+        $val = trim(explode('#', trim($value))[0]);
+        return stripslashes($this->_stripQuotes($val));
     }
 
     /**
@@ -202,10 +204,4 @@ class Env {
         return $this->_changed;
     }
 
-
-    /*public function getEnvValue(string $key): string
-    {
-        preg_match("/^{$key}=(.*)$/m", $this->_envContent, $matches);
-        return $matches[1] ?? '';
-    }*/
 }
