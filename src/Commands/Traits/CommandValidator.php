@@ -4,13 +4,14 @@ namespace msztorc\LaravelEnv\Commands\Traits;
 
 use InvalidArgumentException;
 
-trait CommandValidator {
+trait CommandValidator
+{
 
     /**
      * Check if a given string is valid as an environment variable key.
      *
      * @param string $key
-     * @return boolean
+     * @return bool
      */
     protected function isValidKey(string $key): bool
     {

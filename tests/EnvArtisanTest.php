@@ -40,13 +40,13 @@ final class EnvArtisanTest extends TestCase
     }
 
 
-    private function _genRandomString($length = 8) {
-        return substr(str_shuffle(str_repeat($x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', (int)ceil($length/strlen($x)))),1, $length);
+    private function _genRandomString($length = 8)
+    {
+        return substr(str_shuffle(str_repeat($x = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', (int)ceil($length / strlen($x)))), 1, $length);
     }
 
     public function testEnvGetSelected(): void
     {
-
         $this->artisan('env:get', ['key' => 'APP_NAME'])
             ->expectsOutput('Laravel')
             ->assertExitCode(0);
@@ -58,19 +58,15 @@ final class EnvArtisanTest extends TestCase
         $this->artisan('env:get', ['key' => 'MAIL_FROM_NAME'])
             ->expectsOutput('${APP_NAME}')
             ->assertExitCode(0);
-
     }
 
     public function testEnvGetAll(): void
     {
-
         foreach ($this->_env_vars as $key => $val) {
-
             $this->artisan('env:get', ['key' => $key])
                 ->expectsOutput($val)
                 ->assertExitCode(0);
         }
-
     }
 
     public function testEnvListAll(): void
@@ -93,18 +89,15 @@ final class EnvArtisanTest extends TestCase
         $this->artisan('env:list', ['--json' => true])
             ->expectsOutput(json_encode($this->_env_vars))
             ->assertExitCode(0);
-
     }
 
     public function testEnvArtisanSetAllKeyValueArgs(): void
     {
-
-        foreach($this->env_vars_empty as $key => &$val) {
-            $val = $this->_genRandomString(rand(4,25));
+        foreach ($this->env_vars_empty as $key => &$val) {
+            $val = $this->_genRandomString(rand(4, 25));
         }
 
         foreach ($this->env_vars_empty as $key => $val) {
-
             $this->artisan('env:set', ['key' => $key, 'value' => $val])
                 ->expectsOutput("Environment variable with key '{$key}' has been set to '{$val}'")
                 ->assertExitCode(0);
@@ -112,20 +105,16 @@ final class EnvArtisanTest extends TestCase
             $this->artisan('env:get', ['key' => $key])
                 ->expectsOutput($val)
                 ->assertExitCode(0);
-
         }
-
     }
 
     public function testEnvArtisanSetAllKeyEqualsValueArgs(): void
     {
-
-        foreach($this->env_vars_empty as $key => &$val) {
-            $val = $this->_genRandomString(rand(4,25));
+        foreach ($this->env_vars_empty as $key => &$val) {
+            $val = $this->_genRandomString(rand(4, 25));
         }
 
         foreach ($this->env_vars_empty as $key => $val) {
-
             $this->artisan('env:set', ['key' => $key .'=' .$val])
                 ->expectsOutput("Environment variable with key '{$key}' has been set to '{$val}'")
                 ->assertExitCode(0);
@@ -133,16 +122,12 @@ final class EnvArtisanTest extends TestCase
             $this->artisan('env:get', ['key' => $key])
                 ->expectsOutput($val)
                 ->assertExitCode(0);
-
         }
-
     }
 
     public function testEnvDelAll(): void
     {
-
         foreach ($this->env_vars_empty as $key) {
-
             $this->artisan('env:del', ['key' => $key])
                 ->expectsOutput("Variable '{$key}' has been deleted")
                 ->assertExitCode(0);
@@ -150,11 +135,6 @@ final class EnvArtisanTest extends TestCase
             $this->artisan('env:get', ['key' => $key])
                 ->expectsOutput("There is no variable '{$key}'")
                 ->assertExitCode(0);
-
-
         }
-
     }
-
-
 }

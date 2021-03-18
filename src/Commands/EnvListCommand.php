@@ -3,13 +3,11 @@
 namespace msztorc\LaravelEnv\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Str;
 use msztorc\LaravelEnv\Commands\Traits\CommandValidator;
 use msztorc\LaravelEnv\Env;
 
 class EnvListCommand extends Command
 {
-
     use CommandValidator;
 
     /**
@@ -57,11 +55,11 @@ class EnvListCommand extends Command
      */
     public function handle()
     {
-
         $this->json = (bool)$this->option('json');
 
         $this->env = new Env();
         $this->line($this->_getEntireEnvContent());
+
         return;
     }
 
