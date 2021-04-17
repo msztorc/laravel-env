@@ -2,15 +2,14 @@
 
 namespace msztorc\LaravelEnv\Commands;
 
-use InvalidArgumentException;
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
+use InvalidArgumentException;
 use msztorc\LaravelEnv\Commands\Traits\CommandValidator;
 use msztorc\LaravelEnv\Env;
 
 class EnvSetCommand extends Command
 {
-
     use CommandValidator;
 
     /**
@@ -51,7 +50,6 @@ class EnvSetCommand extends Command
             $env->setValue($key, $value);
 
             $this->info("Environment variable with key '{$key}' has been set to '{$value}'");
-
         } catch (\InvalidArgumentException $e) {
             $this->error($e->getMessage());
         }
@@ -90,5 +88,4 @@ class EnvSetCommand extends Command
 
         return [(string)$key, (string)$value];
     }
-
 }

@@ -32,7 +32,7 @@ class LaravelEnvServiceProvider extends ServiceProvider
             'command.env:get',
             'command.env:set',
             'command.env:del',
-            'command.env:list'
+            'command.env:list',
         ]);
     }
 }
