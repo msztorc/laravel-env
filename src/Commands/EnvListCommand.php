@@ -59,8 +59,6 @@ class EnvListCommand extends Command
 
         $this->env = new Env();
         $this->line($this->_getEntireEnvContent());
-
-        return;
     }
 
     private function _getEntireEnvContent()

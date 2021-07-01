@@ -108,7 +108,5 @@ class EnvGetCommand extends Command
         } else {
             $this->line("There is no variable '{$this->key}'");
         }
-
-        return;
     }
 }

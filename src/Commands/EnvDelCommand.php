@@ -54,7 +54,5 @@ class EnvDelCommand extends Command
             $env->deleteVariable((string)$key);
             $this->info("Variable '{$key}' has been deleted");
         }
-
-        return;
     }
 }
