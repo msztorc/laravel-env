@@ -2,15 +2,12 @@
 
 namespace msztorc\LaravelEnv\Commands;
 
-use InvalidArgumentException;
 use Illuminate\Console\Command;
-use Illuminate\Support\Str;
-use msztorc\LaravelEnv\Env;
 use msztorc\LaravelEnv\Commands\Traits\CommandValidator;
+use msztorc\LaravelEnv\Env;
 
 class EnvDelCommand extends Command
 {
-
     use CommandValidator;
 
     /**
@@ -46,19 +43,16 @@ class EnvDelCommand extends Command
     {
         $key = $this->argument('key');
 
-        if (!is_null($key))
+        if (!is_null($key)) {
             $this->isValidKey((string)$key);
+        }
 
         $env = new Env();
-        if (!$env->exists((string)$key))
+        if (!$env->exists((string)$key)) {
             $this->info("There is no variable {$key}");
-        else
-        {
+        } else {
             $env->deleteVariable((string)$key);
             $this->info("Variable '{$key}' has been deleted");
         }
-
-        return;
     }
-
 }

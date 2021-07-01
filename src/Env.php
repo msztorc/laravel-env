@@ -2,8 +2,8 @@
 
 namespace msztorc\LaravelEnv;
 
-class Env {
-
+class Env
+{
     private $_envContent = null;
     private $_envVars = null;
     private $_envPath = null;
@@ -21,12 +21,10 @@ class Env {
     /**
      *  Parse env content into array
      */
-    private function _parse(): void {
-
+    private function _parse(): void
+    {
         $env_lines = preg_split('/\r\n|\r|\n/', $this->_envContent);
-
-        foreach ($env_lines as $line)
-        {
+        foreach ($env_lines as $line) {
             if (strlen(trim($line)) && !(strpos(trim($line), '#') === 0)) {
                 [$key, $val] = explode('=', (string)$line);
                 $this->_envVars[$key] = $this->_stripValue($val);
@@ -42,8 +40,9 @@ class Env {
      */
     public function exists(string $key): bool
     {
-        if (is_null($this->_envVars))
+        if (is_null($this->_envVars)) {
             $this->_parse();
+        }
 
         return isset($this->_envVars[$key]);
     }
@@ -56,8 +55,9 @@ class Env {
      */
     public function getValue(string $key): string
     {
-        if (is_null($this->_envVars))
+        if (is_null($this->_envVars)) {
             $this->_parse();
+        }
 
         return $this->_envVars[$key] ?? '';
     }
@@ -71,8 +71,9 @@ class Env {
      */
     public function getKeyValue(string $key): array
     {
-        if (is_null($this->_envVars))
+        if (is_null($this->_envVars)) {
             $this->_parse();
+        }
 
         return [$key => $this->_envVars[$key]] ?? [];
     }
@@ -99,10 +100,11 @@ class Env {
         $this->_saved = false;
 
         $this->_parse();
-        if ($write) $this->write();
+        if ($write) {
+            $this->write();
+        }
 
         return $this->getValue($key);
-
     }
 
 
@@ -120,13 +122,12 @@ class Env {
             $this->_changed = true;
             $this->_saved = false;
 
-            if ($write)
+            if ($write) {
                 $this->write();
-
+            }
         }
 
         return true;
-
     }
 
     /**
@@ -156,6 +157,7 @@ class Env {
     private function _stripValue(string $value): string
     {
         $val = trim(explode('#', trim($value))[0]);
+
         return stripslashes($this->_stripQuotes($val));
     }
 
@@ -184,6 +186,7 @@ class Env {
     public function write(): bool
     {
         $this->_saved = (false !== file_put_contents($this->_envPath, $this->_envContent) ?? true);
+
         return $this->_saved;
     }
 
@@ -204,5 +207,4 @@ class Env {
     {
         return $this->_changed;
     }
-
 }

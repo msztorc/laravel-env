@@ -3,13 +3,11 @@
 namespace msztorc\LaravelEnv\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Str;
 use msztorc\LaravelEnv\Commands\Traits\CommandValidator;
 use msztorc\LaravelEnv\Env;
 
 class EnvGetCommand extends Command
 {
-
     use CommandValidator;
 
     /**
@@ -73,25 +71,27 @@ class EnvGetCommand extends Command
     {
         $this->key = (string)$this->argument('key');
 
-        if (strlen($this->key))
+        if (strlen($this->key)) {
             $this->isValidKey($this->key);
+        }
 
         $this->json = (bool)$this->option('json');
         $this->keyValFormat = (bool)$this->option('key-value');
         $this->env = new Env();
 
         return $this->_printOutput();
-
     }
 
     private function _getEntireEnvContent()
     {
-        return ($this->json) ? json_encode($this->env->getVariables()) : $this->env->getEnvContent();;
+        return ($this->json) ? json_encode($this->env->getVariables()) : $this->env->getEnvContent();
+        ;
     }
 
     private function _printKeyValue()
     {
         $value = ($this->json) ? json_encode($this->env->getKeyValue($this->key)) : ($this->keyValFormat ? $this->env->getKeyValue($this->key) : $this->env->getValue($this->key));
+
         return($this->json) ? (string)$value : ($this->keyValFormat ? "{$this->key}={$value[$this->key]}" : (string)$value);
     }
 
@@ -99,6 +99,7 @@ class EnvGetCommand extends Command
     {
         if (!strlen($this->key)) {
             $this->line($this->_getEntireEnvContent());
+
             return;
         }
 
@@ -107,6 +108,5 @@ class EnvGetCommand extends Command
         } else {
             $this->line("There is no variable '{$this->key}'");
         }
-        return;
     }
 }
