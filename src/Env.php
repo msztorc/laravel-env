@@ -24,6 +24,7 @@ class Env
     private function _parse(): void
     {
         $env_lines = preg_split('/\r\n|\r|\n/', $this->_envContent);
+
         foreach ($env_lines as $line) {
             if (strlen(trim($line)) && !(strpos(trim($line), '#') === 0)) {
                 [$key, $val] = explode('=', (string)$line);

@@ -9,6 +9,11 @@
          convertWarningsToExceptions="true"
          processIsolation="false"
          stopOnFailure="false">
+    <php>
+        <ini name="error_reporting" value="-1" />
+        <ini name="xdebug.mode" value="coverage" />
+        <env name="XDEBUG_MODE" value="coverage" />
+    </php>
     <testsuites>
         <testsuite name="Test Suite">
             <directory>tests</directory>
