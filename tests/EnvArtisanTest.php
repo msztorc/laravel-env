@@ -47,7 +47,7 @@ final class EnvArtisanTest extends TestCase
 
     public function testEnvGetSelected(): void
     {
-        $this->artisan('env:get --key=APP_NAME')
+        $this->artisan('env:get APP_NAME')
             ->expectsOutput('Laravel')
             ->assertExitCode(0)
             ;
