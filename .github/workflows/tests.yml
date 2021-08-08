@@ -10,15 +10,15 @@ jobs:
             matrix:
                 os: [ubuntu-latest]
                 php: [8.0, 7.4, 7.3]
-                laravel: [8.*, 7.*, 6.*,]
+                laravel: [8.*, 7.*, 6.*]
                 dependency-version: [prefer-lowest, prefer-stable]
                 include:
                     -   laravel: 8.*
-                        testbench: 6.*
+                        testbench: ^6.15
                     -   laravel: 7.*
-                        testbench: 5.*
+                        testbench: ^5.19
                     -   laravel: 6.*
-                        testbench: 4.*
+                        testbench: ^4.17
                 exclude:
                     - laravel: 8.*
                       php: 7.2
@@ -39,7 +39,7 @@ jobs:
                 uses: shivammathur/setup-php@v2
                 with:
                     php-version: ${{ matrix.php }}
-                    extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick
+                    extensions: dom, curl, libxml, mbstring, zip, pcntl, bcmath, intl, iconv
                     coverage: none
 
             -   name: Install dependencies
