@@ -23,6 +23,8 @@
     "require": {
         "php": "^7.3|^7.4|^8.0",
         "illuminate/support" : "^6.0|^7.0|^8.0",
+        "illuminate/console": "^8.36",
+        "symfony/console": "^5.2.12",
         "ext-json": "*"
     },
     "autoload": {
