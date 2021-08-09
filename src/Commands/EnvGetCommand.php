@@ -99,6 +99,7 @@ class EnvGetCommand extends Command
     {
         if (!strlen($this->key)) {
             $this->line($this->_getEntireEnvContent());
+
             return;
         }
 
@@ -107,6 +108,7 @@ class EnvGetCommand extends Command
         } else {
             $this->line("There is no variable '{$this->key}'");
         }
+
         return;
     }
 }
