@@ -138,4 +138,17 @@ final class EnvArtisanTest extends TestCase
                 ->assertExitCode(0);
         }
     }
+
+    public function testUrls(): void
+    {
+        $app_url = 'https://mywebsite.com';
+
+        $this->artisan('env:set', ['key' => 'APP_URL' .'=' .$app_url])
+            ->expectsOutput("Environment variable with key 'APP_URL' has been set to '{$app_url}'")
+            ->assertExitCode(0);
+
+        $this->artisan('env:get', ['key' => 'APP_URL'])
+            ->expectsOutput($app_url)
+            ->assertExitCode(0);
+    }
 }

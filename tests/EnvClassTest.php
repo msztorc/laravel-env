@@ -199,4 +199,13 @@ final class EnvClassTest extends TestCase
             unset($env);
         }
     }
+
+    public function testUrls(): void
+    {
+        $env = new Env();
+        $app_url = 'https://mywebsite.com';
+        $env->setValue('APP_URL', $app_url);
+        $ver_value = $env->getValue('APP_URL');
+        $this->assertEquals($app_url, $ver_value);
+    }
 }

@@ -5,3 +5,4 @@ vendor/
 tests/.env
 phpunit.xml
 .php_cs.cache
+.phpunit.result.cache
