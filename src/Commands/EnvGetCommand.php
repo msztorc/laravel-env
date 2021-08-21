@@ -95,7 +95,7 @@ class EnvGetCommand extends Command
         return($this->json) ? (string)$value : ($this->keyValFormat ? "{$this->key}={$value[$this->key]}" : (string)$value);
     }
 
-    private function _printOutput()
+    private function _printOutput(): void
     {
         if (!strlen($this->key)) {
             $this->line($this->_getEntireEnvContent());
@@ -108,5 +108,7 @@ class EnvGetCommand extends Command
         } else {
             $this->line("There is no variable '{$this->key}'");
         }
+
+        return;
     }
 }
