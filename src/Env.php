@@ -141,6 +141,7 @@ class Env
             $from[] = '\\' . $exclude[$i];
             $to[] = $exclude[$i];
         }
+
         return (count($from) && count($to)) ? str_replace($from, $to, $str) : $str;
     }
 
