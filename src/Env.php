@@ -131,6 +131,19 @@ class Env
         return true;
     }
 
+    private function _preg_quote_except(string $str, string $exclude, ?string $delimiter = null): string
+    {
+        $str = preg_quote($str, $delimiter);
+        $from = [];
+        $to = [];
+
+        for ($i = 0; $i < strlen($exclude); $i++) {
+            $from[] = '\\' . $exclude[$i];
+            $to[] = $exclude[$i];
+        }
+        return (count($from) && count($to)) ? str_replace($from, $to, $str) : $str;
+    }
+
     /**
      * Check and prepare value to be safe
      * @param string $value
@@ -142,7 +155,7 @@ class Env
             $value = '"' . $value . '"';
         }
 
-        return preg_quote($value);
+        return $this->_preg_quote_except($value, ':.');
     }
 
     private function _stripQuotes(string $value): string
