@@ -152,7 +152,7 @@ class Env
      */
     private function _prepareValue(string $value): string
     {
-        if (false !== strpos($value, ' ') || in_array($value[0], ['=', '$'])) {
+        if (false !== strpos($value, ' ') || (strlen($value) && in_array($value[0], ['=', '$']))) {
             $value = '"' . $value . '"';
         }
 

@@ -151,4 +151,17 @@ final class EnvArtisanTest extends TestCase
             ->expectsOutput($app_url)
             ->assertExitCode(0);
     }
+
+    public function testEmptyValue(): void
+    {
+        $app_name = '';
+
+        $this->artisan('env:set', ['key' => 'APP_NAME' .'=' . ''])
+            ->expectsOutput("Environment variable with key 'APP_NAME' has been set to '{$app_name}'")
+            ->assertExitCode(0);
+
+        $this->artisan('env:get', ['key' => 'APP_NAME'])
+            ->expectsOutput($app_name)
+            ->assertExitCode(0);
+    }
 }
