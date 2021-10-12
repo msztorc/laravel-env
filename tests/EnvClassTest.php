@@ -208,4 +208,13 @@ final class EnvClassTest extends TestCase
         $ver_value = $env->getValue('APP_URL');
         $this->assertEquals($app_url, $ver_value);
     }
+
+    public function testEmptyValue(): void
+    {
+        $env = new Env();
+        $env->setValue('APP_NAME', '');
+        $ver_value = $env->getValue('APP_NAME');
+        $this->assertEmpty($ver_value);
+        $this->assertEquals('', $ver_value);
+    }
 }
