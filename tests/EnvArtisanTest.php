@@ -176,6 +176,5 @@ final class EnvArtisanTest extends TestCase
         $this->artisan('env:get', ['key' => 'APP_NAME'])
             ->expectsOutput($app_name)
             ->assertExitCode(0);
-
     }
 }
