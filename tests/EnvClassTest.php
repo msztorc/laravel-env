@@ -90,7 +90,7 @@ final class EnvClassTest extends TestCase
             'PUSHER_APP_CLUSTER' => 'mt1',
             'MIX_PUSHER_APP_KEY' => '${PUSHER_APP_KEY}',
             'MIX_PUSHER_APP_CLUSTER' => '${PUSHER_APP_CLUSTER}',
-            'dummy_variable' => 'Adf4$rAc"',
+            'dummy_variable' => 'Adf4$r-Ac"',
         ];
 
         $env = new Env();
@@ -216,5 +216,13 @@ final class EnvClassTest extends TestCase
         $ver_value = $env->getValue('APP_NAME');
         $this->assertEmpty($ver_value);
         $this->assertEquals('', $ver_value);
+    }
+
+    public function testSetValueWithHyphen(): void
+    {
+        $env = new Env();
+        $env->setValue('APP_NAME', 'my-app');
+        $ver_value = $env->getValue('APP_NAME');
+        $this->assertEquals('my-app', $ver_value);
     }
 }
