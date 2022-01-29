@@ -156,7 +156,7 @@ class Env
             $value = '"' . $value . '"';
         }
 
-        return $this->_preg_quote_except($value, ':.');
+        return $this->_preg_quote_except($value, ':.-');
     }
 
     private function _stripQuotes(string $value): string
