@@ -16,11 +16,11 @@ jobs:
                     - laravel: 9.*
                       testbench: 7.*
                     - laravel: 8.*
-                      testbench: ^7.*
+                      testbench: 7.*
                     - laravel: 7.*
-                      testbench: ^5.19
+                      testbench: 5.19
                     - laravel: 6.*
-                      testbench: ^4.17
+                      testbench: 4.17
                 exclude:
                     - laravel: 9.*
                       php: 7.3
