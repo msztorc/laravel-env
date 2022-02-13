@@ -13,17 +13,19 @@ jobs:
                 laravel: [9.*, 8.*, 7.*, 6.*]
                 dependency-version: [prefer-lowest, prefer-stable]
                 include:
-                    -   laravel: 9.*
-                        testbench: 7.*
-                    -   laravel: 8.*
-                        testbench: ^6.15
-                    -   laravel: 7.*
-                        testbench: ^5.19
-                    -   laravel: 6.*
-                        testbench: ^4.17
-                exclude:
+                    - laravel: 9.*
+                      testbench: 7.*
                     - laravel: 8.*
-                      php: 7.2
+                      testbench: ^7.*
+                    - laravel: 7.*
+                      testbench: ^5.19
+                    - laravel: 6.*
+                      testbench: ^4.17
+                exclude:
+                    - laravel: 9.*
+                      php: 7.3
+                    - laravel: 9.*
+                      php: 7.4
 
         name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.dependency-version }} - ${{ matrix.os }}
 
