@@ -6,7 +6,6 @@ use InvalidArgumentException;
 
 trait CommandValidator
 {
-
     /**
      * Check if a given string is valid as an environment variable key.
      *

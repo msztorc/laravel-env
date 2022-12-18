@@ -50,7 +50,7 @@ final class EnvArtisanTest extends TestCase
         $this->artisan('env:get', ['key' => 'APP_NAME'])
             ->expectsOutput('Laravel')
             ->assertExitCode(0)
-            ;
+        ;
 
         $this->artisan('env:get', ['key' => 'REDIS_HOST'])
             ->expectsOutput('127.0.0.1')
