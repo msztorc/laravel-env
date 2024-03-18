@@ -52,9 +52,11 @@ class EnvSetCommand extends Command
             $this->info("Environment variable with key '{$key}' has been set to '{$value}'");
         } catch (\InvalidArgumentException $e) {
             $this->error($e->getMessage());
+
+            return 1;
         }
 
-        return;
+        return 0;
     }
 
 

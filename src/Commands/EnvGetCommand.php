@@ -85,7 +85,6 @@ class EnvGetCommand extends Command
     private function _getEntireEnvContent()
     {
         return ($this->json) ? json_encode($this->env->getVariables()) : $this->env->getEnvContent();
-        ;
     }
 
     private function _printKeyValue()
@@ -104,7 +103,7 @@ class EnvGetCommand extends Command
         }
 
         if (strlen($this->key) && $this->env->exists($this->key)) {
-            $this->line($this->_printKeyValue());
+            $this->output->writeln($this->_printKeyValue());
         } else {
             $this->line("There is no variable '{$this->key}'");
         }
