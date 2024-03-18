@@ -27,7 +27,7 @@ class Env
 
         foreach ($env_lines as $line) {
             if (strlen(trim($line)) && !(strpos(trim($line), '#') === 0)) {
-                [$key, $val] = explode('=', (string)$line);
+                [$key, $val] = explode('=', (string)$line, 2);
                 $this->_envVars[$key] = $this->_stripValue($val);
             }
         }
@@ -152,11 +152,11 @@ class Env
      */
     private function _prepareValue(string $value): string
     {
-        if (false !== strpos($value, ' ') || (strlen($value) && in_array($value[0], ['=', '$']))) {
+        if (false !== strpos($value, ' ')) {
             $value = '"' . $value . '"';
         }
 
-        return $this->_preg_quote_except($value, ':.-');
+        return $this->_preg_quote_except($value, ':.-+=');
     }
 
     private function _stripQuotes(string $value): string
@@ -173,7 +173,7 @@ class Env
     {
         $val = trim(explode('#', trim($value))[0]);
 
-        return stripslashes($this->_stripQuotes($val));
+        return $this->_stripQuotes($val);
     }
 
     /**

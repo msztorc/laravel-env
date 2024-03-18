@@ -90,7 +90,7 @@ final class EnvClassTest extends TestCase
             'PUSHER_APP_CLUSTER' => 'mt1',
             'MIX_PUSHER_APP_KEY' => '${PUSHER_APP_KEY}',
             'MIX_PUSHER_APP_CLUSTER' => '${PUSHER_APP_CLUSTER}',
-            'dummy_variable' => 'Adf4$r-Ac"',
+            'DUMMY_VARIABLE' => 'Adf4$r-Ac\"',
         ];
 
         $env = new Env();
@@ -146,7 +146,7 @@ final class EnvClassTest extends TestCase
             'PUSHER_APP_CLUSTER' => '',
             'MIX_PUSHER_APP_KEY' => '',
             'MIX_PUSHER_APP_CLUSTER' => '',
-            'dummy_variable' => '',
+            'DUMMY_VARIABLE' => '',
         ];
 
         function genRandomString($length = 8)
@@ -163,6 +163,7 @@ final class EnvClassTest extends TestCase
         foreach ($env_vars as $key => $val) {
             $new_val = $env->setValue($key, $val);
             $ver_val = $env->getValue($key);
+
             $this->assertTrue($new_val === $ver_val);
             $this->assertEquals($val, $ver_val);
         }
@@ -170,7 +171,7 @@ final class EnvClassTest extends TestCase
 
     public function testEnvDelAll(): void
     {
-        $env_vars = ['APP_NAME', 'APP_ENV', 'APP_KEY', 'APP_DEBUG', 'APP_URL', 'LOG_CHANNEL', 'DB_CONNECTION', 'DB_HOST', 'DB_PORT', 'DB_DATABASE', 'DB_USERNAME', 'DB_PASSWORD', 'BROADCAST_DRIVER', 'CACHE_DRIVER', 'QUEUE_CONNECTION', 'SESSION_DRIVER', 'SESSION_LIFETIME', 'REDIS_HOST', 'REDIS_PASSWORD', 'REDIS_PORT', 'MAIL_MAILER', 'MAIL_HOST', 'MAIL_PORT', 'MAIL_USERNAME', 'MAIL_PASSWORD', 'MAIL_ENCRYPTION', 'MAIL_FROM_ADDRESS', 'MAIL_FROM_NAME', 'AWS_ACCESS_KEY_ID', 'AWS_SECRET_ACCESS_KEY', 'AWS_DEFAULT_REGION', 'AWS_BUCKET', 'PUSHER_APP_ID', 'PUSHER_APP_KEY', 'PUSHER_APP_SECRET', 'PUSHER_APP_CLUSTER', 'MIX_PUSHER_APP_KEY', 'MIX_PUSHER_APP_CLUSTER', 'dummy_variable'];
+        $env_vars = ['APP_NAME', 'APP_ENV', 'APP_KEY', 'APP_DEBUG', 'APP_URL', 'LOG_CHANNEL', 'DB_CONNECTION', 'DB_HOST', 'DB_PORT', 'DB_DATABASE', 'DB_USERNAME', 'DB_PASSWORD', 'BROADCAST_DRIVER', 'CACHE_DRIVER', 'QUEUE_CONNECTION', 'SESSION_DRIVER', 'SESSION_LIFETIME', 'REDIS_HOST', 'REDIS_PASSWORD', 'REDIS_PORT', 'MAIL_MAILER', 'MAIL_HOST', 'MAIL_PORT', 'MAIL_USERNAME', 'MAIL_PASSWORD', 'MAIL_ENCRYPTION', 'MAIL_FROM_ADDRESS', 'MAIL_FROM_NAME', 'AWS_ACCESS_KEY_ID', 'AWS_SECRET_ACCESS_KEY', 'AWS_DEFAULT_REGION', 'AWS_BUCKET', 'PUSHER_APP_ID', 'PUSHER_APP_KEY', 'PUSHER_APP_SECRET', 'PUSHER_APP_CLUSTER', 'MIX_PUSHER_APP_KEY', 'MIX_PUSHER_APP_CLUSTER', 'DUMMY_VARIABLE'];
 
         foreach ($env_vars as $key) {
             $env = new Env();
