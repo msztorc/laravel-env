@@ -261,4 +261,37 @@ final class EnvArtisanTest extends TestCase
             ->assertExitCode(1);
 
     }
+
+    public function testEnvRename(): void
+    {
+        $this->artisan('env:rename', ['key' => 'APP_NAME', 'new-key' => 'APPLICATION_NAME'])
+            ->expectsOutput("Environment variable 'APP_NAME' has been renamed to 'APPLICATION_NAME'")
+            ->assertExitCode(0);
+
+        $this->artisan('env:get', ['key' => 'APPLICATION_NAME'])
+            ->expectsOutput('Laravel')
+            ->assertExitCode(0);
+
+        $this->artisan('env:get', ['key' => 'APP_NAME'])
+            ->expectsOutput("There is no variable 'APP_NAME'")
+            ->assertExitCode(0);
+    }
+
+    public function testEnvRenameNonExistent(): void
+    {
+        $this->artisan('env:rename', ['key' => 'NON_EXISTENT_KEY', 'new-key' => 'NEW_KEY'])
+            ->expectsOutput("There is no variable 'NON_EXISTENT_KEY'")
+            ->assertExitCode(1);
+    }
+
+    public function testEnvRenameInvalidKey(): void
+    {
+        $this->artisan('env:rename', ['key' => 'invalid_key', 'new-key' => 'NEW_KEY'])
+            ->expectsOutput('Invalid environment key. Only use upper letters, digits, and underscores. A variable must start with the letter.')
+            ->assertExitCode(1);
+
+        $this->artisan('env:rename', ['key' => 'APP_NAME', 'new-key' => 'invalid_key'])
+            ->expectsOutput('Invalid environment key. Only use upper letters, digits, and underscores. A variable must start with the letter.')
+            ->assertExitCode(1);
+    }
 }

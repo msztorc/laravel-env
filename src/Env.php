@@ -110,6 +110,33 @@ class Env
 
 
     /**
+     * Rename environment variable key, preserving its value
+     * @param string $currentKey Existing environment variable key
+     * @param string $newKey New environment variable key
+     * @param bool $write Write changes to .env file
+     * @return bool
+     */
+    public function renameVariable(string $currentKey, string $newKey, bool $write = true): bool
+    {
+        if (!$this->exists($currentKey)) {
+            return false;
+        }
+
+        $this->_envContent = preg_replace("/^{$currentKey}=/m", "{$newKey}=", $this->_envContent);
+
+        $this->_changed = true;
+        $this->_saved = false;
+
+        $this->_parse();
+
+        if ($write) {
+            $this->write();
+        }
+
+        return true;
+    }
+
+    /**
      * Delete environment variable
      * @param string $key Environment variable key
      * @param bool $write Write changes to .env file

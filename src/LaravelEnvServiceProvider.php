@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use msztorc\LaravelEnv\Commands\EnvDelCommand;
 use msztorc\LaravelEnv\Commands\EnvGetCommand;
 use msztorc\LaravelEnv\Commands\EnvListCommand;
+use msztorc\LaravelEnv\Commands\EnvRenameCommand;
 use msztorc\LaravelEnv\Commands\EnvSetCommand;
 
 class LaravelEnvServiceProvider extends ServiceProvider
@@ -27,12 +28,14 @@ class LaravelEnvServiceProvider extends ServiceProvider
         $this->app->bind('command.env:set', EnvSetCommand::class);
         $this->app->bind('command.env:del', EnvDelCommand::class);
         $this->app->bind('command.env:list', EnvListCommand::class);
+        $this->app->bind('command.env:rename', EnvRenameCommand::class);
 
         $this->commands([
             'command.env:get',
             'command.env:set',
             'command.env:del',
             'command.env:list',
+            'command.env:rename',
         ]);
     }
 }

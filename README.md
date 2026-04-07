@@ -148,6 +148,31 @@ $env->deleteVariable('PUSHER_APP_ID');
 ```
 
 
+### `env:rename` - Renaming environment variable key
+
+**CLI by Artisan**
+
+`php artisan env:rename CURRENT_KEY NEW_KEY`
+
+
+```bash
+$ php artisan env:rename APP_NAME APPLICATION_NAME
+Environment variable 'APP_NAME' has been renamed to 'APPLICATION_NAME'
+```
+
+**Programmatically**
+
+```php
+<?php
+
+use msztorc\LaravelEnv\Env;
+
+$env = new Env();
+$env->renameVariable('APP_NAME', 'APPLICATION_NAME');
+
+```
+
+
 ### `env:list` - List all environments variables
 
 ```bash
@@ -267,6 +292,19 @@ Delete environment variable
 
 _string_ **$key** Environment variable key
 _bool_ **$write** Write changes to .env file (default=true)
+
+
+Rename environment variable key, preserving its value
+
+```renameVariable(string $currentKey, string $newKey, bool $write = true): bool```
+
+**Params**
+
+_string_ **$currentKey** Existing environment variable key
+_string_ **$newKey** New environment variable key
+_bool_ **$write** Write changes to .env file (default=true)
+
+Returns `true` on success, `false` if the variable does not exist.
 
 
 Get all env variables from memory

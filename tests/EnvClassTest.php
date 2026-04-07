@@ -226,4 +226,50 @@ final class EnvClassTest extends TestCase
         $ver_value = $env->getValue('APP_NAME');
         $this->assertEquals('my-app', $ver_value);
     }
+
+    public function testRenameVariable(): void
+    {
+        $env = new Env();
+
+        $originalValue = $env->getValue('APP_NAME');
+
+        $result = $env->renameVariable('APP_NAME', 'APPLICATION_NAME');
+        $this->assertTrue($result);
+
+        $changed = $env->wasChanged();
+        $this->assertTrue($changed);
+
+        $saved = $env->isSaved();
+        $this->assertTrue($saved);
+
+        unset($env);
+
+        $env = new Env();
+        $this->assertFalse($env->exists('APP_NAME'));
+        $this->assertTrue($env->exists('APPLICATION_NAME'));
+        $this->assertEquals($originalValue, $env->getValue('APPLICATION_NAME'));
+    }
+
+    public function testRenameNonExistentVariable(): void
+    {
+        $env = new Env();
+        $result = $env->renameVariable('NON_EXISTENT_KEY', 'NEW_KEY');
+        $this->assertFalse($result);
+        $this->assertFalse($env->wasChanged());
+    }
+
+    public function testRenameVariablePreservesValue(): void
+    {
+        $env = new Env();
+        $env->setValue('RENAME_TEST_KEY', 'some-test-value');
+
+        $env->renameVariable('RENAME_TEST_KEY', 'RENAMED_TEST_KEY');
+
+        unset($env);
+
+        $env = new Env();
+        $this->assertFalse($env->exists('RENAME_TEST_KEY'));
+        $this->assertTrue($env->exists('RENAMED_TEST_KEY'));
+        $this->assertEquals('some-test-value', $env->getValue('RENAMED_TEST_KEY'));
+    }
 }
