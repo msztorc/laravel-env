@@ -9,7 +9,7 @@ jobs:
             fail-fast: false
             matrix:
                 os: [ubuntu-latest]
-                php: [8.4, 8.3, 8.2, 8.1, 8.0, 7.4, 7.3]
+                php: [8.5, 8.4, 8.3, 8.2, 8.1, 8.0, 7.4]
                 laravel: [6.*, 7.*, 8.*, 9.*, 10.*, 11.*, 12.*, 13.*]
                 dependency-version: [prefer-lowest, prefer-stable]
                 include:
@@ -31,37 +31,29 @@ jobs:
                       testbench: ^4.17
                 exclude:
                     - laravel: 13.*
+                      php: 8.2
+                    - laravel: 13.*
                       php: 8.1
                     - laravel: 13.*
                       php: 8.0
                     - laravel: 13.*
                       php: 7.4
-                    - laravel: 13.*
-                      php: 7.3
                     - laravel: 12.*
                       php: 8.1
                     - laravel: 12.*
                       php: 8.0
                     - laravel: 12.*
                       php: 7.4
-                    - laravel: 12.*
-                      php: 7.3
                     - laravel: 11.*
                       php: 8.1
                     - laravel: 11.*
                       php: 8.0
                     - laravel: 11.*
                       php: 7.4
-                    - laravel: 11.*
-                      php: 7.3
                     - laravel: 10.*
                       php: 8.0
                     - laravel: 10.*
                       php: 7.4
-                    - laravel: 10.*
-                      php: 7.3
-                    - laravel: 9.*
-                      php: 7.3
                     - laravel: 9.*
                       php: 7.4
                     - laravel: 8.*
@@ -73,6 +65,9 @@ jobs:
                     - laravel: 8.*
                       php: 8.4
                       dependency-version: prefer-lowest
+                    - laravel: 8.*
+                      php: 8.5
+                      dependency-version: prefer-lowest
                     - laravel: 7.*
                       php: 8.1
                     - laravel: 7.*
@@ -81,6 +76,8 @@ jobs:
                       php: 8.3
                     - laravel: 7.*
                       php: 8.4
+                    - laravel: 7.*
+                      php: 8.5
                     - laravel: 6.*
                       php: 8.1
                     - laravel: 6.*
@@ -89,6 +86,8 @@ jobs:
                       php: 8.3
                     - laravel: 6.*
                       php: 8.4
+                    - laravel: 6.*
+                      php: 8.5
 
         name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.dependency-version }} - ${{ matrix.os }}
 
