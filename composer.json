@@ -36,10 +36,7 @@
         }
     },
     "config": {
-        "sort-packages": true,
-        "audit": {
-            "ignore": ["PKSA-8qx3-n5y5-vvnd", "PKSA-w7xr-vk7n-rstm", "PKSA-fndg-qryc-dyc9"]
-        }
+        "sort-packages": true
     },
     "scripts": {
         "test": "vendor/bin/phpunit --colors=always",
